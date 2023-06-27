@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../pages/api/auth/[...nextauth].js";
-import Login from "./Login.tsx";
-import Logged from "./Logged.tsx";
+import Login from "./auth/Login.tsx";
+import Logged from "./auth/Logged.tsx";
 
 const NavBar = async () => {
   const session = await getServerSession(authOptions);

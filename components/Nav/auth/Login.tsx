@@ -12,7 +12,7 @@ const Login = () => {
         href="/"
         className="flex gap-1 items-center hover:text-xl hover:text-slate-500"
       >
-        <button onClick={() => signIn("google")}>Log in or Sign up</button>
+        <button onClick={() => signIn()}>Log in or Sign up</button>
         <BiLogIn className="text-2xl" />
       </Link>
     </div>
