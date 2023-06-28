@@ -19,7 +19,7 @@ const Logged = ({ image }: User) => {
   }
 
   return (
-    <div className="flex items-center justify-center h-[200px] w-[300px] text-center">
+    <div className="flex items-center justify-center text-center">
       <div className="flex gap-2 items-center hover:text-xl hover:text-slate-500">
         <Image
           width={64}

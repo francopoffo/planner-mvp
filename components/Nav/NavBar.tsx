@@ -1,42 +1,28 @@
-
-
 import Link from "next/link";
+
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../../pages/api/auth/[...nextauth].js";
 import Login from "./auth/Login.tsx";
 import Logged from "./auth/Logged.tsx";
+import ResponsiveNav from "./ResponsiveNav.tsx";
 
 const NavBar = async () => {
   const session = await getServerSession(authOptions);
 
   return (
-    <header className="flex items-center h-[200px] justify-between p-16 border-b border-slate-700">
-      <div>
-        <h1 className="text-6xl ml-12">
+    <header className="w-full fixed top-0 left-0 right-0 z-10 mt-4 border-b border-slate-600 pb-8">
+      <nav className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
+        <h1 className="text-6xl text-center pt-4">
           <Link href="/">LogoApp</Link>
         </h1>
-      </div>
-      <div className="flex mr-32 items-center pt-8">
-        <div className="flex items-center justify-center h-[200px] w-[150px] text-center ">
-          <Link href="/" className="hover:text-xl hover:text-slate-500">
-            Home
-          </Link>
+        <div className="flex items-center justify-between mt-4 mx-6">
+          <ResponsiveNav />
+          <div>
+            {!session?.user && <Login />}
+            {session?.user && <Logged image={session.user?.image} />}
+          </div>
         </div>
-        <div className="flex items-center justify-center h-[200px] w-[150px] text-center ">
-          <Link href="/" className="hover:text-xl hover:text-slate-500">
-            Dashboard
-          </Link>
-        </div>
-        <div className="flex items-center justify-center h-[200px] w-[150px] text-center ">
-          <Link href="/" className="hover:text-xl hover:text-slate-500">
-            Other
-          </Link>
-        </div>
-      </div>
-      <div className="pt-8">
-        {!session?.user && <Login />}
-        {session?.user && <Logged image={session.user?.image} />}
-      </div>
+      </nav>
     </header>
   );
 };

@@ -13,9 +13,9 @@ const SignIn = async () => {
   }
 
   return (
-    <section className="flex items-center justify-center">
+    <section className="flex items-center justify-center mt-48">
       <div className="flex flex-col items-center justity-center gap-8 mt-16 h-[300px] w-[300px] p-5 border border-slate-500 rounded-md">
-        <h2 className="mt-10 w-[150px] text-center">Sign In</h2>
+        <h2 className="text-3xl mt-10 w-[150px] text-center">Sign in</h2>
         <GoogleButton />
         <GitHubButton />
       </div>

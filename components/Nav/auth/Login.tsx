@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react"
 
 const Login = () => {
   return (
-    <div className="flex items-center justify-center h-[200px] w-[300px] text-center">
+    <div className="flex items-center justify-center text-center w-[200px]">
       <Link
         href="/"
         className="flex gap-1 items-center hover:text-xl hover:text-slate-500"
