@@ -32,10 +32,10 @@ const ResponsiveNav = () => {
         <ul className="md:mr-8 md:flex lg:mr-16 items-center justify-center">
           <li className="nav-link">
             <Link href="/" onClick={() => setNavbar(!navbar)}>
-              About
+              Home
             </Link>
           </li>
-          <li className="nav-link">
+          {/* <li className="nav-link">
             <Link href="/" onClick={() => setNavbar(!navbar)}>
               Blogs
             </Link>
@@ -44,7 +44,7 @@ const ResponsiveNav = () => {
             <Link href="/" onClick={() => setNavbar(!navbar)}>
               Contact
             </Link>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>

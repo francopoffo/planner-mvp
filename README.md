@@ -1,5 +1,4 @@
-This project is a template for my next full stack apps.
-It already has Prisma and next-auth set up.
+This is a financial planner for the On the rocks party.
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).

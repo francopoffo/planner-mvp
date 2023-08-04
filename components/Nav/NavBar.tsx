@@ -11,9 +11,9 @@ const NavBar = async () => {
 
   return (
     <header className="w-full fixed top-0 left-0 right-0 z-10 mt-4 border-b border-slate-600 pb-8">
-      <nav className="justify-between px-4 mx-auto lg:max-w-7xl md:items-center md:flex md:px-8">
-        <h1 className="text-6xl text-center pt-4">
-          <Link href="/">LogoApp</Link>
+      <nav className="justify-between px-4 mx-auto lg:h-10 lg:max-w-7xl md:items-center md:flex md:px-8">
+        <h1 className="text-4xl text-center pt-4">
+          <Link href="/">OTR Financial Planner</Link>
         </h1>
         <div className="flex items-center justify-between mt-4 mx-6">
           <ResponsiveNav />
