@@ -5,8 +5,8 @@ import NavBar from "@/components/Nav/NavBar";
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
 
 export const metadata = {
-  title: "Next.js fullstack app starter",
-  description: "My starting project for fullstack apps.",
+  title: "Next.js party planner",
+  description: "Financial planner for making on the rocks parties.",
 };
 
 export default function RootLayout({
