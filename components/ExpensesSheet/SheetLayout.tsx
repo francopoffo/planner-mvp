@@ -1,13 +1,31 @@
-import React from "react";
+"use client";
+
+import { useState } from "react";
+import AddForm from "./AddForm";
 
 type SheetLayoutProps = {
   title: string;
 };
 
 const SheetLayout = ({ title }: SheetLayoutProps) => {
+  const [isForm, setIsForm] = useState(false);
+
+  const onToggleAddForm = () => {
+    setIsForm(!isForm);
+  };
+
   return (
     <div className="w-[45%] border-2 border-solid border-blue-100 rounded-md">
-      <header className="text-center py-2 text-lg border-b-2 bg-blue-100 text-slate-900 font-bold">{title}</header>
+      {isForm ? <AddForm title="gasto" onToggle={onToggleAddForm} /> : ""}
+      <header className="flex justify-between text-center text-lg border-b-2 bg-blue-100 text-slate-900 font-bold">
+        <h2 className="py-2 px-4">{title}</h2>
+        <button
+          className="bg-slate-900 rounded-md text-blue-100 p-2 mr-2 hover:bg-slate-700 hover:text-white"
+          onClick={() => setIsForm(!isForm)}
+        >
+          New
+        </button>
+      </header>
       <div className="p-4">
         <ul className="flex flex-col gap-4">
           <li>
