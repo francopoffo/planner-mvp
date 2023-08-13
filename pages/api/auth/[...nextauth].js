@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import prisma from "../../../prisma/client.tsx";
+import { prisma } from "@/prisma/client";
 
 const adapter = PrismaAdapter(prisma);
 
@@ -22,8 +22,8 @@ export const authOptions = {
     // ...add more providers here
   ],
   pages: {
-    signIn: "/auth/signin"
-  }
+    signIn: "/auth/signin",
+  },
 };
 
 export default NextAuth(authOptions);

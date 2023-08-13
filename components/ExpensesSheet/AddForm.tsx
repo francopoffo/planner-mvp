@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import axios, { AxiosError } from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+import { expenseOrEarning } from "@/types/expenseAndEarning";
 
 type AddFormProps = {
   onToggle: () => void;
@@ -8,13 +12,51 @@ type AddFormProps = {
 };
 
 const AddForm = ({ title, onToggle }: AddFormProps) => {
+  const queryClient = useQueryClient();
   const [description, setDescription] = useState("");
   const [value, setValue] = useState("");
   const [situation, setSituation] = useState("");
+  let toastID: string;
+
+  const { mutate } = useMutation(
+    async ({ description, value, situation }: expenseOrEarning) =>
+      await axios.post("/api/expensesAndEarnings/add", {
+        description,
+        value,
+        situation,
+        type: false,
+      }),
+    {
+      onError: (error) => {
+        if (error instanceof AxiosError) {
+          toast.remove(toastID);
+          toast.error(error?.response?.data.message, { id: toastID });
+        }
+      },
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(["expenses"]);
+        toast.remove(toastID);
+        toast.success("Success 🔥", { id: toastID });
+        setDescription("");
+        setValue("");
+        setSituation("");
+        onToggle();
+      },
+    }
+  );
+
+  const submitHandler = (e: React.FormEvent) => {
+    e.preventDefault();
+    toastID = toast.loading("Generating the new expense", { id: toastID });
+    mutate({ description, value, situation });
+  };
 
   return (
     <div className="fixed left-0 top-0 z-20 h-full w-full bg-black/50">
-      <form className="absolute left-1/2 top-1/2 z-30 flex w-[50%] -translate-x-1/2 -translate-y-1/2 transform flex-col gap-6 rounded-lg bg-slate-900 p-12">
+      <form
+        onSubmit={submitHandler}
+        className="absolute left-1/2 top-1/2 z-30 flex w-[50%] -translate-x-1/2 -translate-y-1/2 transform flex-col gap-6 rounded-lg bg-slate-900 p-12"
+      >
         <h2 className="font-bold text-lg">Adicione um {title}</h2>
         <div className="flex flex-col gap-2">
           <label className="text-sm">Descrição</label>
