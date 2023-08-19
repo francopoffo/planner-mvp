@@ -1,12 +1,18 @@
 import React from "react";
 
-const SheetLine = () => {
+type SheetLineProps = {
+  description: string;
+  value: string;
+  situation: string;
+};
+
+const SheetLine = ({ description, value, situation }: SheetLineProps) => {
   return (
     <li>
       <div className="flex justify-between">
-        <span className="w-[55%]">Cache dj</span>
-        <span className="w-[15%]">500,00</span>
-        <span className="w-[30%]">Será pago dps da festa</span>
+        <span className="w-[55%]">{description}</span>
+        <span className="w-[15%]">{value}</span>
+        <span className="w-[30%]">{situation}</span>
       </div>
       <hr className="mt-2" />
     </li>

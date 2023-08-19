@@ -2,9 +2,22 @@
 
 import { useState } from "react";
 import AddForm from "./AddForm";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
+import SheetLine from "./SheetLine";
+import { expenseOrEarning } from "@/types/expenseAndEarning";
 
 type SheetLayoutProps = {
   title: string;
+};
+
+const allExpenses = async () => {
+  const response = await axios.get("/api/expensesAndEarnings/get", {
+    params: {
+      type: false,
+    },
+  });
+  return response.data;
 };
 
 const SheetLayout = ({ title }: SheetLayoutProps) => {
@@ -13,6 +26,19 @@ const SheetLayout = ({ title }: SheetLayoutProps) => {
   const onToggleAddForm = () => {
     setIsForm(!isForm);
   };
+
+  const { data, error, isLoading } = useQuery({
+    queryFn: allExpenses,
+    queryKey: ["expenses"],
+  });
+
+  if (error) return error;
+  if (isLoading)
+    return (
+      <p className="my-8 flex justify-center text-lg font-bold text-gray-700">
+        Loading the page...
+      </p>
+    );
 
   return (
     <div className="w-[45%] border-2 border-solid border-blue-100 rounded-md">
@@ -36,6 +62,13 @@ const SheetLayout = ({ title }: SheetLayoutProps) => {
             </div>
             <hr className="mt-2" />
           </li>
+          {data?.map((expense: expenseOrEarning) => (
+            <SheetLine
+              description={expense.description}
+              value={expense.value}
+              situation={expense.situation}
+            />
+          ))}
         </ul>
       </div>
     </div>
