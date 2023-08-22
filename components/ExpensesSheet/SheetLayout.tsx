@@ -2,47 +2,27 @@
 
 import { useState } from "react";
 import AddForm from "./AddForm";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 import SheetLine from "./SheetLine";
 import { expenseOrEarning } from "@/types/expenseAndEarning";
 
+
 type SheetLayoutProps = {
-  title: string;
+  title: string,
+  typeOf: boolean,
+  data?: expenseOrEarning[]
 };
 
-const allExpenses = async () => {
-  const response = await axios.get("/api/expensesAndEarnings/get", {
-    params: {
-      type: false,
-    },
-  });
-  return response.data;
-};
 
-const SheetLayout = ({ title }: SheetLayoutProps) => {
+const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
   const [isForm, setIsForm] = useState(false);
 
   const onToggleAddForm = () => {
     setIsForm(!isForm);
   };
 
-  const { data, error, isLoading } = useQuery({
-    queryFn: allExpenses,
-    queryKey: ["expenses"],
-  });
-
-  if (error) return error;
-  if (isLoading)
-    return (
-      <p className="my-8 flex justify-center text-lg font-bold text-gray-700">
-        Loading the page...
-      </p>
-    );
-
   return (
     <div className="w-[45%] border-2 border-solid border-blue-100 rounded-md">
-      {isForm ? <AddForm title="gasto" onToggle={onToggleAddForm} /> : ""}
+      {isForm ? <AddForm title="gasto" typeOf={typeOf} onToggle={onToggleAddForm} /> : ""}
       <header className="flex justify-between text-center text-lg border-b-2 bg-blue-100 text-slate-900 font-bold">
         <h2 className="py-2 px-4">{title}</h2>
         <button

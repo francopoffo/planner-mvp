@@ -5,13 +5,15 @@ import axios, { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { expenseOrEarning } from "@/types/expenseAndEarning";
+import { type } from "os";
 
 type AddFormProps = {
   onToggle: () => void;
   title: string;
+  typeOf: boolean
 };
 
-const AddForm = ({ title, onToggle }: AddFormProps) => {
+const AddForm = ({ title, typeOf, onToggle }: AddFormProps) => {
   const queryClient = useQueryClient();
   const [description, setDescription] = useState("");
   const [value, setValue] = useState("");
@@ -24,7 +26,7 @@ const AddForm = ({ title, onToggle }: AddFormProps) => {
         description,
         value,
         situation,
-        type: false,
+        type: typeOf,
       }),
     {
       onError: (error) => {

@@ -8,13 +8,18 @@ export default async function handler(
   if (req.method === "GET") {
     //Fetch expenses
 
+    let type;
 
-    const type: boolean = req.body.type;
+    if (req.query.type == "false") {
+      type = false;
+    } else if (req.query.type == "true") {
+      type = true;
+    }
 
     try {
       const data = await prisma.expensesAndEarnings.findMany({
         where: {
-           type
+          type,
         },
         orderBy: {
           createdAt: "desc",
@@ -22,7 +27,9 @@ export default async function handler(
       });
       res.status(200).json(data);
     } catch (err) {
-      res.status(403).json({ err: "Error has occured while fetching expenses" });
+      res
+        .status(403)
+        .json({ err: "Error has occured while fetching expenses" });
     }
   }
 }
