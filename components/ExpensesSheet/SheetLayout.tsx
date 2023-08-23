@@ -5,13 +5,11 @@ import AddForm from "./AddForm";
 import SheetLine from "./SheetLine";
 import { expenseOrEarning } from "@/types/expenseAndEarning";
 
-
 type SheetLayoutProps = {
-  title: string,
-  typeOf: boolean,
-  data?: expenseOrEarning[]
+  title: string;
+  typeOf: boolean;
+  data?: expenseOrEarning[];
 };
-
 
 const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
   const [isForm, setIsForm] = useState(false);
@@ -22,7 +20,11 @@ const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
 
   return (
     <div className="w-[45%] border-2 border-solid border-blue-100 rounded-md">
-      {isForm ? <AddForm title="gasto" typeOf={typeOf} onToggle={onToggleAddForm} /> : ""}
+      {isForm ? (
+        <AddForm title="gasto" typeOf={typeOf} onToggle={onToggleAddForm} />
+      ) : (
+        ""
+      )}
       <header className="flex justify-between text-center text-lg border-b-2 bg-blue-100 text-slate-900 font-bold">
         <h2 className="py-2 px-4">{title}</h2>
         <button
@@ -36,9 +38,10 @@ const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
         <ul className="flex flex-col gap-4">
           <li>
             <div className="flex justify-between">
-              <span className="w-[55%]">Descrição</span>
+              <span className="w-[45%]">Descrição</span>
               <span className="w-[15%]">Valor</span>
               <span className="w-[30%]">Situação</span>
+              <div className="w-[10%]"></div>
             </div>
             <hr className="mt-2" />
           </li>
