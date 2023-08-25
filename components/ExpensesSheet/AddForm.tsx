@@ -5,7 +5,7 @@ import axios, { AxiosError } from "axios";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-hot-toast";
 import { expenseOrEarning } from "@/types/expenseAndEarning";
-import { type } from "os";
+
 
 type AddFormProps = {
   onToggle: () => void;

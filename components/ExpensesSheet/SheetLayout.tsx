@@ -3,12 +3,12 @@
 import { useState } from "react";
 import AddForm from "./AddForm";
 import SheetLine from "./SheetLine";
-import { expenseOrEarning } from "@/types/expenseAndEarning";
+import { expenseOrEarningWithId } from "@/types/expenseAndEarningWithId";
 
 type SheetLayoutProps = {
   title: string;
   typeOf: boolean;
-  data?: expenseOrEarning[];
+  data?: expenseOrEarningWithId[];
 };
 
 const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
@@ -45,8 +45,10 @@ const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
             </div>
             <hr className="mt-2" />
           </li>
-          {data?.map((expense: expenseOrEarning) => (
+          {data?.map((expense: expenseOrEarningWithId) => (
             <SheetLine
+              key={expense.id}
+              id={expense.id}
               description={expense.description}
               value={expense.value}
               situation={expense.situation}

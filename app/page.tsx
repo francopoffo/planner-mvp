@@ -1,7 +1,7 @@
 "use client";
 
 import SheetLayout from "@/components/ExpensesSheet/SheetLayout";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQueries } from "@tanstack/react-query";
 import axios from "axios";
 
 const allExpenses = async () => {
