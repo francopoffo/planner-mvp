@@ -1,8 +1,9 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
-import SignInForm from "@/components/Nav/auth/SignInForm";
 
-const SignIn = async () => {
+import RegisterForm from "@/components/Nav/auth/RegisterForm";
+
+const Register = async () => {
   // const session = await getServerSession(authOptions);
 
   // if (session) {
@@ -11,9 +12,9 @@ const SignIn = async () => {
 
   return (
     <section className="flex items-center justify-center mt-48 text-white">
-      <SignInForm />
+      <RegisterForm />
     </section>
   );
 };
 
-export default SignIn;
+export default Register;
