@@ -60,11 +60,3 @@ model User {
   sessions              Session[]
   ExpensesAndEarnings   ExpensesAndEarnings[]
 }
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
-}
