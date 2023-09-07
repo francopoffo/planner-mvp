@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../auth/[...nextauth].js";
+import { authOptions } from "../auth/[...nextauth]";
 import { prisma } from "@/prisma/client";
 
 export default async function handler(
@@ -39,7 +39,7 @@ export default async function handler(
           value: valueAsNumber,
           situation,
           type,
-          user: prismaUser
+          userId: prismaUser!.id
         },
       });
       res.status(200).json(result);

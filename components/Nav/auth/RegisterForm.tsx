@@ -20,7 +20,7 @@ const RegisterForm = () => {
     });
     console.log(response.data);
 
-    router.push("/auth/login");
+    router.push("/auth/signin");
   };
 
   return (

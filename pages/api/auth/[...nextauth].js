@@ -1,6 +1,4 @@
 import NextAuth from "next-auth";
-import GithubProvider from "next-auth/providers/github";
-import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/prisma/client";
@@ -14,7 +12,7 @@ export const authOptions = {
   secret: process.env.AUTH_SECRET,
   providers: [
     CredentialsProvider({
-      name: "credentials",
+      name: "Credentials",
       credentials: {
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
@@ -24,9 +22,6 @@ export const authOptions = {
   ],
   pages: {
     signIn: "/auth/signin",
-  },
-  session: {
-    strategy: "jwt",
   },
 };
 
