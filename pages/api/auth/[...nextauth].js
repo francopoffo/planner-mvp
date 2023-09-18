@@ -10,6 +10,9 @@ export const authOptions = {
   // Configure one or more authentication providers
   adapter: adapter,
   secret: process.env.AUTH_SECRET,
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -17,7 +20,32 @@ export const authOptions = {
         username: { label: "Username", type: "text", placeholder: "jsmith" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials) {},
+      async authorize(credentials) {
+        if (!credentials.email || !credentials.password) {
+          return null;
+        }
+
+        const user = await prisma.user.findUnique({
+          where: {
+            email: credentials.email,
+          },
+        });
+
+        if (!user) {
+          return null;
+        }
+
+        const passwordsMatch = await bcrypt.compare(
+          credentials.password,
+          user.password
+        );
+
+        if (!passwordsMatch) {
+          return null;
+        }
+
+        return user;
+      },
     }),
   ],
   pages: {
