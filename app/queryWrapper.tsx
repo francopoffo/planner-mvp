@@ -13,10 +13,12 @@ type Props = {
 
 const QueryWrapper = ({ children }: Props) => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Toaster />
-      {children}
-    </QueryClientProvider>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <Toaster />
+        {children}
+      </QueryClientProvider>
+    </>
   );
 };
 

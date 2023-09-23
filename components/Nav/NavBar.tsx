@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../pages/api/auth/[...nextauth].js";
+import { authOptions } from "../../pages/api/auth/[...nextauth].ts";
 import Login from "./auth/Login.tsx";
 import Logged from "./auth/Logged.tsx";
 import ResponsiveNav from "./ResponsiveNav.tsx";

@@ -18,14 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <QueryWrapper>
-        <Provider>
-          <body className={`${roboto.className} max-w-[1475px] mx-auto`}>
+      <body className={`${roboto.className} max-w-[1475px] mx-auto`}>
+        <QueryWrapper>
+          <Provider>
             <NavBar />
             {children}
-          </body>
-        </Provider>
-      </QueryWrapper>
+          </Provider>
+        </QueryWrapper>
+      </body>
     </html>
   );
 }

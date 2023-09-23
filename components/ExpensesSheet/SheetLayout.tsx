@@ -45,15 +45,16 @@ const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
             </div>
             <hr className="mt-2" />
           </li>
-          {data?.map((expense: expenseOrEarningWithId) => (
-            <SheetLine
-              key={expense.id}
-              id={expense.id}
-              description={expense.description}
-              value={expense.value}
-              situation={expense.situation}
-            />
-          ))}
+          {data?.map((expense: expenseOrEarningWithId) => {
+            return (
+              <SheetLine
+                key={expense.id}
+                id={expense.id}
+                description={expense.description}
+                value={expense.value}
+                situation={expense.situation} />
+            );
+          })}
         </ul>
       </div>
     </div>
