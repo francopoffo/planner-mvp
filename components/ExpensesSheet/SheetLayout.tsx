@@ -7,7 +7,7 @@ import { expenseOrEarningWithId } from "@/types/expenseAndEarningWithId";
 
 type SheetLayoutProps = {
   title: string;
-  typeOf: boolean;
+  typeOf: string;
   data?: expenseOrEarningWithId[];
 };
 

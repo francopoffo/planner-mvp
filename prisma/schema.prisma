@@ -16,7 +16,7 @@ model ExpensesAndEarnings {
   description        String
   value              Int
   situation          String 
-  type               Boolean
+  type               String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   user               User   @relation(fields: [userId], references: [id])

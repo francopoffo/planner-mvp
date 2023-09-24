@@ -13,8 +13,11 @@ export default async function handler(
     const description: string = req.body.description;
     const valueAsNumber: number = Number(req.body.value);
     const situation: string = req.body.situation;
-    const type: boolean = req.body.type;
+    const type: string = req.body.type;
 
+    if (!session){
+      return res.status(403).json({ message: "Please log in to be able to create." });
+    }
  
     const prismaUser = await prisma.user.findUnique({
       where: { email: session?.user?.email! },

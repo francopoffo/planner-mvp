@@ -6,20 +6,12 @@ export default async function handler(
   res: NextApiResponse
 ) {
   if (req.method === "GET") {
-    //Fetch expenses
+    //Fetch expenses or earnings    
 
-    let type;
-
-    if (req.query.type == "false") {
-      type = false;
-    } else if (req.query.type == "true") {
-      type = true;
-    }
-
-    try {
+      try {
       const data = await prisma.expensesAndEarnings.findMany({
         where: {
-          type,
+          type: "earnings",
         },
         orderBy: {
           createdAt: "desc",
@@ -29,7 +21,7 @@ export default async function handler(
     } catch (err) {
       res
         .status(403)
-        .json({ err: "Error has occured while fetching expenses" });
+        .json({ err: "Error has occured while fetching earnings" });
     }
   }
 }

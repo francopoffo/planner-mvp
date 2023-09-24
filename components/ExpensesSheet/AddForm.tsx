@@ -9,7 +9,7 @@ import { expenseOrEarning } from "@/types/expenseAndEarning";
 type AddFormProps = {
   onToggle: () => void;
   title: string;
-  typeOf: boolean;
+  typeOf: string;
 };
 
 const AddForm = ({ title, typeOf, onToggle }: AddFormProps) => {
@@ -36,6 +36,7 @@ const AddForm = ({ title, typeOf, onToggle }: AddFormProps) => {
       },
       onSuccess: (data) => {
         queryClient.invalidateQueries(["expenses"]);
+        queryClient.invalidateQueries(["earnings"]);
         toast.remove(toastID);
         toast.success("Success 🔥", { id: toastID });
         setDescription("");
@@ -49,7 +50,7 @@ const AddForm = ({ title, typeOf, onToggle }: AddFormProps) => {
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
 
-    toastID = toast.loading("Generating the new expense", { id: toastID });
+    toastID = toast.loading("Generating the new expense/earning", { id: toastID });
     mutate({ description, value, situation });
   };
 

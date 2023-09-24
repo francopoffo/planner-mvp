@@ -6,20 +6,12 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 
 const allExpenses = async () => {
-  const response = await axios.get("/api/expensesAndEarnings/get", {
-    data: {
-      type: false,
-    },
-  });
+  const response = await axios.get("/api/expensesAndEarnings/getExpense");
   return response.data;
 };
 
 const allEarnings = async () => {
-  const response = await axios.get("/api/expensesAndEarnings/get", {
-    params: {
-      type: true,
-    },
-  });
+  const response = await axios.get("/api/expensesAndEarnings/getEarning");
   return response.data;
 };
 
@@ -79,12 +71,12 @@ export default function Home() {
           <>
             <SheetLayout
               title="Gastos"
-              typeOf={false}
+              typeOf={"expenses"}
               data={expensesQuery.data}
             />
             <SheetLayout
               title="Ganhos"
-              typeOf={true}
+              typeOf={"earnings"}
               data={earningsQuery.data}
             />
           </>
