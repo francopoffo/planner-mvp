@@ -8,7 +8,6 @@ import { signIn } from "next-auth/react";
 
 const SignInForm = () => {
   const [loginData, setLoginData] = useState({
-    username: "",
     email: "",
     password: "",
   });
@@ -33,14 +32,6 @@ const SignInForm = () => {
         onSubmit={onLoginHandler}
         className="flex flex-col items-center gap-4 text-slate-900 w-full"
       >
-        <input
-          type="text"
-          placeholder="Username"
-          className="w-[70%] px-4 py-2 rounded-md leading-5"
-          onChange={(e) =>
-            setLoginData({ ...loginData, username: e.target.value })
-          }
-        ></input>
         <input
           type="text"
           placeholder="Email"
