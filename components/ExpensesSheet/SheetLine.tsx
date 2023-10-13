@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import ToggleDelete from "./ToggleDelete";
+import ToggleEdit from "./ToggleEdit";
 
 type SheetLineProps = {
   description: string;
@@ -46,8 +47,11 @@ const SheetLine = ({ description, value, situation, id }: SheetLineProps) => {
     mutate(id);
   };
 
-  const onToggle = () => {
+  const onToggleDelete = () => {
     setToggleDelete(!toggleDelete);
+  };
+  const onToggleEdit = () => {
+    setToggleEdit(!toggleEdit);
   };
 
   return (
@@ -58,10 +62,16 @@ const SheetLine = ({ description, value, situation, id }: SheetLineProps) => {
           <span className="w-[15%]">{`R$ ${value}`}</span>
           <span className="w-[30%] uppercase">{situation}</span>
           <div className="w-[10%] flex gap-4 ">
-            <button className="text-xl" onClick={() => setToggleEdit(!toggleDelete)}>
+            <button
+              className="text-xl"
+              onClick={() => setToggleEdit(!toggleEdit)}
+            >
               <AiOutlineEdit />
             </button>
-            <button className="text-xl" onClick={() => setToggleDelete(!toggleEdit)}>
+            <button
+              className="text-xl"
+              onClick={() => setToggleDelete(!toggleDelete)}
+            >
               <AiOutlineDelete />
             </button>
           </div>
@@ -69,7 +79,13 @@ const SheetLine = ({ description, value, situation, id }: SheetLineProps) => {
         <hr className="mt-2" />
       </li>
       {toggleDelete && (
-        <ToggleDelete onToggle={onToggle} onDelete={deleteExpenseOrEarning} />
+        <ToggleDelete
+          onToggle={onToggleDelete}
+          onDelete={deleteExpenseOrEarning}
+        />
+      )}
+      {toggleEdit && (
+        <ToggleEdit onToggle={onToggleEdit} lineData={{description, value, situation, id}} />
       )}
     </>
   );
