@@ -12,6 +12,12 @@ type SheetLayoutProps = {
 };
 
 const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
+  let totalValue: number = 0;
+
+  data?.forEach((expense) => {
+    totalValue += Number(expense.value);
+  });
+
   const [isForm, setIsForm] = useState(false);
 
   const onToggleAddForm = () => {
@@ -19,7 +25,7 @@ const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
   };
 
   return (
-    <div className="w-[45%] border-2 border-solid border-blue-100 rounded-md">
+    <div className="w-[45%] h-fit border-2 border-solid border-blue-100 rounded-md">
       {isForm ? (
         <AddForm title="gasto" typeOf={typeOf} onToggle={onToggleAddForm} />
       ) : (
@@ -39,8 +45,8 @@ const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
           <li>
             <div className="flex justify-between">
               <span className="w-[45%]">Descrição</span>
-              <span className="w-[15%]">Valor</span>
-              <span className="w-[30%]">Situação</span>
+              <span className="w-[22%]">Valor</span>
+              <span className="w-[23%]">Situação</span>
               <div className="w-[10%]"></div>
             </div>
             <hr className="mt-2" />
@@ -52,10 +58,20 @@ const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
                 id={expense.id}
                 description={expense.description}
                 value={expense.value}
-                situation={expense.situation} />
+                situation={expense.situation}
+              />
             );
           })}
         </ul>
+      </div>
+      <div className="flex justify-end py-2 pr-4 gap-4">
+        <span>Total</span>
+        <span className="w-[100px]">
+          {totalValue.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          })}
+        </span>
       </div>
     </div>
   );

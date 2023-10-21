@@ -59,8 +59,13 @@ const SheetLine = ({ description, value, situation, id }: SheetLineProps) => {
       <li>
         <div className="flex justify-between">
           <span className="w-[45%]">{description}</span>
-          <span className="w-[15%]">{`R$ ${value}`}</span>
-          <span className="w-[30%] uppercase">{situation}</span>
+          <span className="w-[22%]">
+            {Number(value).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+            })}
+          </span>
+          <span className="w-[23%] uppercase">{situation}</span>
           <div className="w-[10%] flex gap-4 ">
             <button
               className="text-xl"
@@ -85,7 +90,10 @@ const SheetLine = ({ description, value, situation, id }: SheetLineProps) => {
         />
       )}
       {toggleEdit && (
-        <ToggleEdit onToggle={onToggleEdit} lineData={{description, value, situation, id}} />
+        <ToggleEdit
+          onToggle={onToggleEdit}
+          lineData={{ description, value, situation, id }}
+        />
       )}
     </>
   );
