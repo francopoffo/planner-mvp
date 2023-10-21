@@ -7,6 +7,8 @@ import toast from "react-hot-toast";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import ToggleDelete from "./ToggleDelete";
 import ToggleEdit from "./ToggleEdit";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 type SheetLineProps = {
   description: string;
@@ -18,6 +20,13 @@ type SheetLineProps = {
 const SheetLine = ({ description, value, situation, id }: SheetLineProps) => {
   const [toggleDelete, setToggleDelete] = useState(false);
   const [toggleEdit, setToggleEdit] = useState(false);
+
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({
+      id: id,
+    });
+
+  const style = { transition, transform: CSS.Transform.toString(transform) };
 
   const queryClient = useQueryClient();
   let deleteToastID: string;
@@ -56,7 +65,7 @@ const SheetLine = ({ description, value, situation, id }: SheetLineProps) => {
 
   return (
     <>
-      <li>
+      <li ref={setNodeRef} style={style} {...attributes} {...listeners}>
         <div className="flex justify-between">
           <span className="w-[45%]">{description}</span>
           <span className="w-[22%]">

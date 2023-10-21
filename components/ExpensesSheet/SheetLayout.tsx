@@ -4,6 +4,12 @@ import { useState } from "react";
 import AddForm from "./AddForm";
 import SheetLine from "./SheetLine";
 import { expenseOrEarningWithId } from "@/types/expenseAndEarningWithId";
+import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core";
+import {
+  SortableContext,
+  arrayMove,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
 
 type SheetLayoutProps = {
   title: string;
@@ -19,9 +25,23 @@ const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
   });
 
   const [isForm, setIsForm] = useState(false);
+  const [sheetData, setSheetData] = useState(data);
 
   const onToggleAddForm = () => {
     setIsForm(!isForm);
+  };
+
+  const onDragEnd = (e: DragEndEvent) => {
+    const { active, over } = e;
+    if (active.id === over?.id) {
+      return;
+    }
+    setSheetData((previousD) => {
+      const oldIndex = previousD!.findIndex((d) => d.id === active.id);
+      const newIndex = previousD!.findIndex((d) => d.id === over!.id);
+
+      return arrayMove(previousD!, oldIndex, newIndex);
+    });
   };
 
   return (
@@ -51,17 +71,24 @@ const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
             </div>
             <hr className="mt-2" />
           </li>
-          {data?.map((expense: expenseOrEarningWithId) => {
-            return (
-              <SheetLine
-                key={expense.id}
-                id={expense.id}
-                description={expense.description}
-                value={expense.value}
-                situation={expense.situation}
-              />
-            );
-          })}
+          <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+            <SortableContext
+              items={sheetData!}
+              strategy={verticalListSortingStrategy}
+            >
+              {sheetData?.map((expense: expenseOrEarningWithId) => {
+                return (
+                  <SheetLine
+                    key={expense.id}
+                    id={expense.id}
+                    description={expense.description}
+                    value={expense.value}
+                    situation={expense.situation}
+                  />
+                );
+              })}
+            </SortableContext>
+          </DndContext>
         </ul>
       </div>
       <div className="flex justify-end py-2 pr-4 gap-4">
