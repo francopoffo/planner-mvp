@@ -34,10 +34,10 @@ const ResponsiveNav = () => {
             <Link href="/">Home</Link>
           </li>
           <li className="nav-link">
-            <Link href="/">Blogs</Link>
+            <Link href="/parties">Parties</Link>
           </li>
           <li className="nav-link">
-            <Link href="/">Contact</Link>
+            <Link href="/photos">Photos</Link>
           </li>
         </ul>
       </div>
