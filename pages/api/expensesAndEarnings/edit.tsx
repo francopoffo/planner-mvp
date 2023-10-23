@@ -14,7 +14,6 @@ export default async function handler(
     //     .status(401)
     //     .json({ message: "Please sign in to delete." });
     // }
-    console.log(req.body);
 
     const id: any = req.body.id;
     const description: any = req.body.description;
@@ -27,10 +26,10 @@ export default async function handler(
 
     try {
       const result = await prisma.expensesAndEarnings.update({
-        data : {
-            description,
-            value: valueAsNumber,
-            situation
+        data: {
+          description,
+          value: valueAsNumber,
+          situation,
         },
         where: {
           id: id,
@@ -39,11 +38,7 @@ export default async function handler(
       res.status(200).json(result);
     } catch (err) {
       console.log(err);
-      console.log(req.query);
-
-      res
-        .status(403)
-        .json({ err: "Error has occured while trying to edit." });
+      res.status(403).json({ err: "Error has occured while trying to edit." });
     }
   }
 }

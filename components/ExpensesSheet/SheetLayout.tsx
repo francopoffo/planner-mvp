@@ -1,10 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddForm from "./AddForm";
 import SheetLine from "./SheetLine";
 import { expenseOrEarningWithId } from "@/types/expenseAndEarningWithId";
-import { DndContext, DragEndEvent, closestCenter } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import {
   SortableContext,
   arrayMove,
@@ -18,18 +25,30 @@ type SheetLayoutProps = {
 };
 
 const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
-  let totalValue: number = 0;
-
-  data?.forEach((expense) => {
-    totalValue += Number(expense.value);
-  });
-
   const [isForm, setIsForm] = useState(false);
   const [sheetData, setSheetData] = useState(data);
+
+  useEffect(() => {
+    setSheetData(data);
+  }, [data]);
+
+  let totalValue: number = 0;
+
+  sheetData?.forEach((expense) => {
+    totalValue += Number(expense.value);
+  });
 
   const onToggleAddForm = () => {
     setIsForm(!isForm);
   };
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    })
+  );
 
   const onDragEnd = (e: DragEndEvent) => {
     const { active, over } = e;
@@ -71,7 +90,11 @@ const SheetLayout = ({ title, typeOf, data }: SheetLayoutProps) => {
             </div>
             <hr className="mt-2" />
           </li>
-          <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={onDragEnd}
+          >
             <SortableContext
               items={sheetData!}
               strategy={verticalListSortingStrategy}
