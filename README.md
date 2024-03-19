@@ -1,4 +1,4 @@
-This is a financial planner for the On the rocks party.
+This a mini MVP I did for a future project.
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
